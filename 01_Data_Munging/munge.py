@@ -8,8 +8,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-PATH_DROPBOX = 'E:/Dropbox/'
-PATH_RAW = os.path.join(PATH_DROPBOX, 'Walmart/00_Raw_Data')
+PATH_GITHUB = 'E:/GitHub/'
+PATH_RAW = os.path.join(PATH_GITHUB, 'Kaggle-Walmart/00_Raw_Data')
 
 
 def wrap_read_csv(name_data, name_indices, name_dates=['Date']):
@@ -21,9 +21,13 @@ def wrap_read_csv(name_data, name_indices, name_dates=['Date']):
         parse_dates=name_dates
         )
 
+    assert df.index.is_unique, "{}'s index has dups.".format(name_data)
+
+    df.index.names = [x.lower() for x in df.index.names]
     df.columns = [x.lower() for x in df.columns]
 
-    assert df.index.is_unique, "{}'s index has dups.".format(name_data)
+    print '\n\n==== {}.info() ====\n'.format(name_data)
+    print 'Indices: {}\n'.format(df.index.names)
     print df.info()
     return df
 
