@@ -23,8 +23,8 @@ def wrap_read_csv(name_data, name_indices, name_dates=['Date']):
 
     assert df.index.is_unique, "{}'s index has dups.".format(name_data)
 
-    df.index.names = [x.lower() for x in df.index.names]
-    df.columns = [x.lower() for x in df.columns]
+    df.index.names = map(str.lower, df.index.names)
+    df.columns = map(str.lower, df.columns)
 
     print '\n\n==== {}.info() ====\n'.format(name_data)
     print 'Indices: {}\n'.format(df.index.names)
